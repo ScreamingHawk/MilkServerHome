@@ -1,4 +1,4 @@
-﻿<?php include_once '/includes/header.php'; ?>
+﻿<?php include '/includes/header.php'; ?>
 
 <div class="jumbotron">
 	<div class="container">
@@ -13,7 +13,7 @@
 			<div class="thumbnail">
 				<div class="caption">
 					<h2>Sample</h2>
-					<p>This is a sample box for infomation about what will be on this server. </p>
+					<p>This is a sample box for information about what will be on this server. </p>
 					<p>This will be mostly unfinished works and beta pages prior to going live. </p>
 					<p><a class="btn btn-default" href="/index.php" role="button">View &raquo;</a></p>
 				</div>
@@ -24,5 +24,5 @@
 
 <?php 
 $requires_masonry = true;
-include_once '/var/www/includes/footer.php'; 
+include '/includes/footer.php'; 
 ?>
