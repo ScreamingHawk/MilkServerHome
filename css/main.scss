@@ -1,0 +1,105 @@
+// Sticky header and footer
+$header-height: 50px;
+$footer-height: 71px;
+html {
+	position: relative;
+	min-height: 100%;
+}
+body {
+	padding-top: $header-height;
+	margin-bottom: $footer-height;
+}
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: $footer-height;
+}
+
+// Carousel
+$carousel-height: 500px;
+.carousel {
+	height: $carousel-height;
+	margin-bottom: 60px;
+	.carousel-caption {
+		z-index: 10;
+	}
+	.carousel-inner > .item {
+		height: $carousel-height;
+		background-color: #CCC;
+		> img {
+			position: absolute;
+			min-width: 100%;
+			height: $carousel-height;
+		}
+	}
+}
+
+// Check box
+.check-list {
+	padding-top: 0;
+	padding-bottom: 0;
+	min-height: 60px;
+	max-height: 100px;
+	overflow-y: scroll;
+}
+
+.lead {
+	input[type="checkbox"], input[type="radio"] {
+		margin: 8px -20px 0;
+	}
+}
+
+// Text
+
+.smaller {
+	font-size: 75%;
+}
+.tiny {
+	font-size: 20%;
+}
+
+.nolineheight {
+	line-height: 0;
+}
+
+.breakword {
+	word-wrap: break-word;
+}
+
+.hovertitle {
+	border-bottom: 1px dashed #CCC;
+}
+
+// Margin and padding fixes
+.rowbottom {
+	margin-bottom: 20px;
+}
+
+.notopmargin {
+	margin-top: 0 !important;
+}
+.notoppadding {
+	padding-top: 0 !important;
+}
+.notop {
+	@extend .notopmargin;
+	@extend .notoppadding;
+}
+
+.nobottommargin {
+	margin-bottom: 0 !important;
+}
+.nobottompadding {
+	padding-bottom: 0 !important;
+}
+.nobottom {
+	@extend .nobottommargin;
+	@extend .nobottompadding;
+}
+
+// Image
+img.fit {
+	max-width: 100%;
+	max-height: 100%;
+}
