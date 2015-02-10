@@ -1,4 +1,4 @@
-﻿<?php include '/includes/header.php'; ?>
+﻿<?php include $_SERVER['DOCUMENT_ROOT'].'/includes/header.php'; ?>
 
 <div class="jumbotron">
 	<div class="container">
@@ -24,5 +24,5 @@
 
 <?php 
 $requires_masonry = true;
-include '/includes/footer.php'; 
+include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; 
 ?>
