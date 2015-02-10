@@ -1,27 +1,8 @@
-## Error Pages
+IndexIgnore *
 
 ErrorDocument 404 /404.html
 
-
-## Block access to the includes folder
-
-## Enable Mod Rewrite, this is only required once in each .htaccess file
-RewriteEngine On 
-RewriteBase / 
-## Test for access to includes directory
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /includes/ .*$ [NC] 
-## Test that file requested has php extension 
-RewriteCond %{REQUEST_FILENAME} ^.+\.php$ 
-## Forbid Access 
+RewriteEngine On
+RewriteBase /
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /includes/ .*$ [NC]
 RewriteRule .* - [F,NS,L]
-
-
-## Prevent directory listings
-
-IndexIgnore *
-
-
-# Force scripts to display as code
-
-RemoveHandler cgi-script .pl .cgi .php .py 
-AddType text/plain .pl .cgi .php .py
