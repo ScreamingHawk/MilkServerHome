@@ -37,7 +37,15 @@
 					<?php endif; ?>
 				</div>
 				<div class="navbar-collapse collapse">
-					<?php if ($logged == 'out') : ?>
+					<?php if ($logged == 'in') : ?>
+						<form class="navbar-form navbar-right" role="form" action="/logout.php" method="POST">
+							<div class="form-group">
+								<p class="navbar-text navbar-right visible-xs">Logged in as <?php echo $_SESSION['username']; ?></p>
+								<button type="submit" class="btn btn-primary">Sign out</button>
+							</div>
+						</form>
+						<p class="navbar-text navbar-right hidden-xs">Logged in as <?php echo $_SESSION['username']; ?></p>
+					<?php else : ?>
 						<form class="navbar-form navbar-right" role="form" action="/process_login.php" method="POST">
 							<div class="form-group">
 								<input type="text" placeholder="Username / Email" name="email" class="form-control">
@@ -50,14 +58,6 @@
 								<a class="btn btn-primary narbar-link" href="/register.php">Register</a>
 							<?php endif; ?>
 						</form>
-					<?php else : ?>
-						<form class="navbar-form navbar-right" role="form" action="/logout.php" method="POST">
-							<div class="form-group">
-								<p class="navbar-text navbar-right visible-xs">Logged in as <?php echo $_SESSION['username']; ?></p>
-								<button type="submit" class="btn btn-primary">Sign out</button>
-							</div>
-						</form>
-						<p class="navbar-text navbar-right hidden-xs">Logged in as <?php echo $_SESSION['username']; ?></p>
 					<?php endif; ?>
 				</div>
 			</div>
