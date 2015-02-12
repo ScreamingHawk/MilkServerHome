@@ -21,7 +21,7 @@ try{
 	} else {
 		header('Content-Type: ' . $cv['ContentType']);
 		header('Content-Length: ' . $cv['ContentLength']);
-			$cv['Body']->rewind();
+		$cv['Body']->rewind();
 		while ($data = $cv['Body']->read(1024)){
 			echo $data;
 		}

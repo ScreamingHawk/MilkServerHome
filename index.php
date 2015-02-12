@@ -12,10 +12,9 @@
 		<div class="col-md-4 masonryitem">
 			<div class="thumbnail">
 				<div class="caption">
-					<h2>Sample</h2>
-					<p>This is a sample box for information about what will be on this server. </p>
-					<p>This will be mostly unfinished works and beta pages prior to going live. </p>
-					<p><a class="btn btn-default" href="/index.php" role="button">View &raquo;</a></p>
+					<h2>File Server</h2>
+					<p>A simple file server. </p>
+					<p><a class="btn btn-default" href="/file/get.php" role="button">View &raquo;</a></p>
 				</div>
 			</div>
 		</div>

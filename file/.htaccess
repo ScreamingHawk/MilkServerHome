@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !=/file/get.php
+RewriteRule .* /file/get.php
