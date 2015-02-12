@@ -1,9 +1,16 @@
 		<footer id="footer">
 			<div class="container">
-				<hr>
-
-				<p>&copy; Standen Links <?php echo date("Y"); ?></p>
-			</div> <!-- /container -->
+				<div class="row">
+					<div class="col-sm-12">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<p>&copy; <?php echo date("Y"); ?> Standen Links | <a href="/file/get.php?file=MichaelStandenCV.pdf">By Michael Standen</a></p>
+					</div>
+				</div>
+			</div>
 		</footer>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
