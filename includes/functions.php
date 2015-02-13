@@ -1,5 +1,5 @@
 <?php
-include_once 'db-connect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db-connect.php';
 
 function sec_session_start() {
 	$session_name = 'sec_session_id';
