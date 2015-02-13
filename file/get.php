@@ -1,8 +1,9 @@
 <?php 
-require $_SERVER['DOCUMENT_ROOT'].'/lib/aws/aws-autoloader.php';
+require $_SERVER['DOCUMENT_ROOT'].'lib/aws/aws-autoloader.php';
 
 $fileBucket = 'milkserver-filestore';
 $filename = $_GET['file'];
+$fileStoragePrefix = 'public/';
 
 if (isset($filename)){
 	try{
@@ -13,11 +14,11 @@ if (isset($filename)){
 
 		$f = $s3Client->getObject(array(
 				'Bucket' => $fileBucket,
-				'Key' => $filename
+				'Key' => ($fileStoragePrefix . $filename)
 		));
 
 		if (!$f['ContentLength']){
-			header($_SERVER['SERVER_PROTOCOL']." 404 Not Found");
+			$get_error_msg = "There was a problem accessing your file. ";
 		} else {
 			header('Content-Type: ' . $f['ContentType']);
 			header('Content-Length: ' . $f['ContentLength']);
@@ -25,12 +26,14 @@ if (isset($filename)){
 			while ($data = $f['Body']->read(1024)){
 				echo $data;
 			}
+			// Success
+			exit();
 		}
-		// Success
-		exit();
 	} catch (Exception $e){
-		$error_msg = $e->getMessage();
+		$get_error_msg = "There was a problem accessing your file. ";
 	}
 } else {
-	echo "No file to get";
+	$get_info_msg = "Please provide a file name in your request. e.g. get.php?file=YourFileName.txt ";
 }
+
+include $_SERVER['DOCUMENT_ROOT'].'file/index.php';
