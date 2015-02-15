@@ -7,7 +7,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
-						<p>&copy; <?php echo date("Y"); ?> Standen Links | <a href="/file/get.php?file=MichaelStandenCV.pdf">By Michael Standen</a></p>
+						<p>&copy; <?php echo date("Y"); ?> <?php echo $SITE_NAME; ?> | By <a href="/file/get.php?file=MichaelStandenCV.pdf">Michael Standen</a></p>
 					</div>
 				</div>
 			</div>

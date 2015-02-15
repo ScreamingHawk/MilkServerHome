@@ -1,9 +1,10 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db-connect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db_connect.php';
 
 function sec_session_start() {
 	$session_name = 'sec_session_id';
-	$secure = SECURE;
+	//TODO Change this to true once HTTPS implemented
+	$secure = false;
 	$httponly = true;
 	// Force cookies
 	if (ini_set('session.use_only_cookies', 1) === FALSE) {
@@ -23,8 +24,7 @@ function sec_session_start() {
 	session_regenerate_id(); 
 }
 function login($email, $password, $mysqli) {
-	// Use prepared statements to prevent SQL injection
-	if ($stmt = $mysqli->prepare("SELECT id, username, password, salt FROM users WHERE email = ? LIMIT 1")) {
+	if ($stmt = $mysqli->prepare("SELECT id, username, password, salt FROM user WHERE email = ? LIMIT 1")) {
 		$stmt->bind_param('s', $email);
 		$stmt->execute();
 		$stmt->store_result();
@@ -34,7 +34,7 @@ function login($email, $password, $mysqli) {
 		
 		if ($stmt->num_rows == 0) {
 			// Not found. Test username
-			if ($stmt = $mysqli->prepare("SELECT id, username, password, salt FROM users WHERE username = ? LIMIT 1")) {
+			if ($stmt = $mysqli->prepare("SELECT id, username, password, salt FROM user WHERE username = ? LIMIT 1")) {
 				$stmt->bind_param('s', $email);
 				$stmt->execute();
 				$stmt->store_result();
@@ -100,7 +100,7 @@ function login_check($mysqli) {
 		
 		$user_browser = $_SERVER['HTTP_USER_AGENT'];
 		
-		if ($stmt = $mysqli->prepare("SELECT password FROM users WHERE id = ? LIMIT 1")) {
+		if ($stmt = $mysqli->prepare("SELECT password FROM user WHERE id = ? LIMIT 1")) {
 			$stmt->bind_param('i', $user_id);
 			$stmt->execute();
 			$stmt->store_result();
@@ -143,7 +143,7 @@ function esc_url($url) {
 	return $url;
 }
 function list_users($mysqli) {
-	if ($stmt = $mysqli->prepare("SELECT username FROM users ORDER BY username")) {
+	if ($stmt = $mysqli->prepare("SELECT username FROM user ORDER BY username")) {
 		$stmt->execute();
 		$stmt->store_result();
 		
@@ -156,6 +156,7 @@ function list_users($mysqli) {
 		return $usernames;
 	}
 }
+
 // Formatting
 function human_filesize($bytes, $decimals = 2) {
 	$sz = ' KMGTP';
@@ -184,6 +185,7 @@ function timeAgo($old, $new=null) {
 	}
 	return $timeCalc . " seconds ago";
 }
+
 // Helper
 function non_zero_array($arr) {
 	return isset($arr) && !is_null($arr) && is_array($arr) && count($arr) > 0;

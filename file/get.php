@@ -2,7 +2,9 @@
 require $_SERVER['DOCUMENT_ROOT'].'lib/aws/aws-autoloader.php';
 
 $fileBucket = 'milkserver-filestore';
-$filename = $_GET['file'];
+if (isset($_GET['file'])){
+	$filename = $_GET['file'];
+}
 $fileStoragePrefix = 'public/';
 
 if (isset($filename)){

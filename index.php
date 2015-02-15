@@ -1,4 +1,6 @@
-﻿<?php include $_SERVER['DOCUMENT_ROOT'].'/includes/header.php'; ?>
+﻿<?php 
+include $_SERVER['DOCUMENT_ROOT'].'/includes/header.php'; 
+?>
 
 <div class="jumbotron">
 	<div class="container">
@@ -14,7 +16,7 @@
 				<div class="caption">
 					<h2>File Server</h2>
 					<p>A simple file server. </p>
-					<p><a class="btn btn-default" href="/file/get.php" role="button">View &raquo;</a></p>
+					<p><a class="btn btn-default" href="/file/index.php" role="button">View &raquo;</a></p>
 				</div>
 			</div>
 		</div>

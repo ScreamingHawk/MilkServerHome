@@ -1,5 +1,16 @@
 <?php
-$logged = 'out';
+include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db_connect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
+
+$SITE_NAME = "Standen Links";
+
+sec_session_start();
+
+if (login_check($mysqli) == true){
+	$logged = 'in';
+} else {
+	$logged = 'out';
+}
 ?><!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -8,8 +19,8 @@ $logged = 'out';
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Standen Links</title>
-		<meta name="description" content="Standen Links Home">
+		<title><?php echo $SITE_NAME; ?></title>
+		<meta name="description" content="<?php echo $SITE_NAME; ?> Home">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -31,7 +42,7 @@ $logged = 'out';
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/index.php">Standen Links</a>
+					<a class="navbar-brand" href="/index.php"><?php echo $SITE_NAME; ?></a>
 					<?php if (isset($breadcrumb)): ?>
 						<a class="navbar-brand" style="margin-left: -25px;" href="<?php echo $breadcrumblink; ?>">
 							&raquo; <?php echo $breadcrumb; ?>
