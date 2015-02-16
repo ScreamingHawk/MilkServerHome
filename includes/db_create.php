@@ -5,10 +5,14 @@ if ($mysqli->connect_error){
 	die("Connection failed: " . $mysqli->connect_error);
 }
 
+$DEBUG = false;
+
 // Create user table
 if ($res = $mysqli->query("SHOW TABLES LIKE 'user'")){
-	if (mysql_num_rows($res) > 0){
-		echo "Table 'user' already exists. ";
+	if ($res->num_rows > 0){
+		if ($DEBUG){
+			echo "Table 'user' already exists. ";
+		}
 	} else {
 		$sql = "CREATE TABLE IF NOT EXISTS user (
 			id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -18,32 +22,48 @@ if ($res = $mysqli->query("SHOW TABLES LIKE 'user'")){
 			salt char(128) NOT NULL
 			)";
 		if ($mysqli->query($sql) === TRUE){
-			echo "Created table 'users' successfully. ";
+			if ($DEBUG){
+				echo "Created table 'users' successfully. ";
+			}
 		} else {
-			echo "Error creating table 'users': " . $mysqli->error;
+			if ($DEBUG){
+				echo "Error creating table 'users': " . $mysqli->error;
+			}
 		}
 	}
 } else {
-	echo "Table 'user' like test failed. ";
+	if ($DEBUG){
+		echo "Table 'user' like test failed. ";
+	}
 }
 
 // Create user login attempts table
 if ($res = $mysqli->query("SHOW TABLES LIKE 'login_attempts'")){
-	if (mysql_num_rows($res) > 0){
-		echo "Table 'login_attempts' already exists. ";
+	if ($res->num_rows > 0){
+		if ($DEBUG){
+			echo "Table 'login_attempts' already exists. ";
+		}
 	} else {
 		$sql = "CREATE TABLE IF NOT EXISTS login_attempts (
 			user_id int(11) NOT NULL,
 			time varchar(30) NOT NULL
 			)";
 		if ($mysqli->query($sql) === TRUE){
-			echo "Created table 'login_attempts' successfully. ";
+			if ($DEBUG){
+				echo "Created table 'login_attempts' successfully. ";
+			}
 		} else {
-			echo "Error creating table 'login_attempts': " . $mysqli->error;
+			if ($DEBUG){
+				echo "Error creating table 'login_attempts': " . $mysqli->error;
+			}
 		}
 	}
 } else {
-	echo "Table 'login_attempts' like test failed. ";
+	if ($DEBUG){
+		echo "Table 'login_attempts' like test failed. ";
+	}
 }
 
-echo "Database creation completed. ";
+if ($DEBUG){
+	echo "Database creation completed. ";
+}
