@@ -1,39 +1,31 @@
 <?php 
-require $_SERVER['DOCUMENT_ROOT'].'lib/aws/aws-autoloader.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'lib/aws/aws-autoloader.php';
 
-$fileBucket = 'milkserver-filestore';
 if (isset($_GET['file'])){
 	$filename = $_GET['file'];
 }
-$fileStoragePrefix = 'public/';
+if (isset($_GET['user'])){
+	$reqUsername = $_GET['user'];
+}
 
 if (isset($filename)){
-	try{
-		$s3Client = Aws\S3\S3Client::factory(array(
-				'key' => $_SERVER['AWS_ACCESS_KEY_ID'],
-				'secret' => $_SERVER['AWS_SECRET_KEY']
-		));
-
-		$f = $s3Client->getObject(array(
-				'Bucket' => $fileBucket,
-				'Key' => ($fileStoragePrefix . $filename)
-		));
-
-		if (!$f['ContentLength']){
-			$get_error_msg = "There was a problem accessing your file. ";
-		} else {
-			header('Content-Type: ' . $f['ContentType']);
-			header('Content-Length: ' . $f['ContentLength']);
-			$f['Body']->rewind();
-			while ($data = $f['Body']->read(1024)){
-				echo $data;
+	require_once $_SERVER['DOCUMENT_ROOT'].'includes/s3.php';
+	$s3 = new s3();
+	if (isset($reqUsername)){
+		// Only allow access if the user supplied is the logged in user
+		if ($_SESSION['username'] == $reqUsername){
+			if ($s3->sendUserFile($filename, $reqUsername)){
+				exit();
 			}
-			// Success
+		} else {
+			$get_error_msg = "You may only access private files of the logged in user. ";
+		}
+	} else {
+		if ($s3->sendPublicFile($filename)){
 			exit();
 		}
-	} catch (Exception $e){
-		$get_error_msg = "There was a problem accessing your file. ";
 	}
+	$get_error_msg = "Sorry, we were unable to retrieve your file. ";
 } else {
 	$get_info_msg = "Please provide a file name in your request. e.g. get.php?file=YourFileName.txt ";
 }

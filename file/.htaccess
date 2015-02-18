@@ -1,4 +1,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !=/file/get.php
 RewriteCond %{REQUEST_URI} !=/file/index.php
-RewriteRule .* /file/index.php
+RewriteRule .* /file/get.php

@@ -1,4 +1,9 @@
-﻿<?php include $_SERVER['DOCUMENT_ROOT'].'includes/header.php'; ?>
+﻿<?php 
+
+include $_SERVER['DOCUMENT_ROOT'].'includes/header.php'; 
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/s3.php'; 
+
+?>
 
 <div class="jumbotron">
 	<div class="container">
@@ -51,6 +56,79 @@
 		</div>
 		<div class="col-md-3 hidden-xs hidden-sm">
 		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3>Public Uploads</h3>
+				</div>
+				<div class="panel-body">
+					<?php 
+						$objs = getPublicFileList();
+						if (!isset($objs) || empty($objs)):
+						?>
+						There are currently no publicly uploaded files. 
+					<?php else : ?>
+						This is a list of all the publicly uploaded files. 
+						<ul>
+							<?php 
+								foreach ($objs as $obj): 
+									if ($obj['Size'] > 0) : 
+									?>
+									<li>
+										<a href="/file/get.php?file=<?php echo str_replace($fileStoragePublicPrefix, "", $obj['Key']); ?>">
+											<?php echo str_replace($fileStoragePublicPrefix, "", $obj['Key']); ?>
+										</a>
+										(<?php echo human_filesize($obj['Size']); ?>)
+									</li>
+								<?php
+								endif;
+							endforeach; 
+							?>
+						</ul>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+		<?php if ($logged == 'in') : ?>
+			<div class="col-md-6">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3>Your Uploads</h3>
+					</div>
+					<div class="panel-body">
+						<?php 
+							$objs = getUserBucketFileList($_SESSION['username']);
+							if (!isset($objs) || empty($objs)):
+							?>
+							You currently don't have any uploaded files. 
+						<?php else : ?>
+							This is a list of all the files you have listed under your account. 
+							<ul>
+								<?php 
+									foreach ($objs as $obj): 
+										if ($obj['Size'] > 0) : 
+										?>
+										<li>
+											<a href="/file/get.php?file=<?php echo $obj['Key']; ?>&user=<?php echo $_SESSION['username']; ?>">
+												<?php echo $obj['Key']; ?>
+											</a>
+											(<?php echo human_filesize($obj['Size']); ?>)
+										</li>
+									<?php
+									endif;
+								endforeach; 
+								?>
+							</ul>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		<?php else: ?>
+			<div class="col-md-6 hidden-sm hidden-xs">
+			</div>
+		<?php endif; ?>
 	</div>
 </div>
 
