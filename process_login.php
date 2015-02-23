@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db-connect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db_connect.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
 sec_session_start();
 if (isset($_POST['email'], $_POST['p'])) {
