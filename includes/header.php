@@ -4,7 +4,9 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
 
 $SITE_NAME = "Standen Links";
 
-sec_session_start();
+if (!isset($skip_sec_session_start)){
+	sec_session_start();
+}
 
 if (login_check($mysqli) == true){
 	$logged = 'in';

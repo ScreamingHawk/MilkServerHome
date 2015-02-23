@@ -3,6 +3,8 @@
 include $_SERVER['DOCUMENT_ROOT'].'includes/header.php'; 
 require_once $_SERVER['DOCUMENT_ROOT'].'includes/s3.php'; 
 
+$s3 = new s3();
+
 ?>
 
 <div class="jumbotron">
@@ -14,19 +16,19 @@ require_once $_SERVER['DOCUMENT_ROOT'].'includes/s3.php';
 
 <div class="container">
 
-	<?php if (isset($get_error_msg)) : ?>
+	<?php if ($s3->getErrorMsg() !== null && !empty($s3->getErrorMsg())) : ?>
 		<div class="alert alert-danger alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<strong>Error!</strong>
-			<?php echo $get_error_msg; ?>
+			<?php echo $s3->getErrorMsg(); ?>
 		</div>
 	<?php endif; ?>
 
-	<?php if (isset($get_info_msg)) : ?>
+	<?php if ($s3->getInfoMsg() !== null && !empty($s3->getInfoMsg())) : ?>
 		<div class="alert alert-info alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<strong>Oops!</strong>
-			<?php echo $get_info_msg; ?>
+			<?php echo $s3->getInfoMsg(); ?>
 		</div>
 	<?php endif; ?>
 	
@@ -65,7 +67,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'includes/s3.php';
 				</div>
 				<div class="panel-body">
 					<?php 
-						$objs = getPublicFileList();
+						$objs = $s3->getPublicFileList();
 						if (!isset($objs) || empty($objs)):
 						?>
 						There are currently no publicly uploaded files. 
@@ -77,8 +79,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'includes/s3.php';
 									if ($obj['Size'] > 0) : 
 									?>
 									<li>
-										<a href="/file/get.php?file=<?php echo str_replace($fileStoragePublicPrefix, "", $obj['Key']); ?>">
-											<?php echo str_replace($fileStoragePublicPrefix, "", $obj['Key']); ?>
+										<a href="/file/get.php?file=<?php echo str_replace(s3::$fileStoragePublicPrefix, "", $obj['Key']); ?>">
+											<?php echo str_replace(s3::$fileStoragePublicPrefix, "", $obj['Key']); ?>
 										</a>
 										(<?php echo human_filesize($obj['Size']); ?>)
 									</li>
@@ -99,8 +101,15 @@ require_once $_SERVER['DOCUMENT_ROOT'].'includes/s3.php';
 					</div>
 					<div class="panel-body">
 						<?php 
-							$objs = getUserBucketFileList($_SESSION['username']);
-							if (!isset($objs) || empty($objs)):
+							$objs = $s3->getUserBucketFileList($_SESSION['username']);
+							$valid = false;
+							foreach ($objs as $obj){ 
+								if ($obj['Size'] > 0){ 
+									$valid = true;
+								}
+							}
+							$objs->rewind();
+							if (!$valid): 
 							?>
 							You currently don't have any uploaded files. 
 						<?php else : ?>

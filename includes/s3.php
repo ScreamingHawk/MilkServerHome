@@ -42,12 +42,12 @@ class s3 {
 			));
 			
 			if (!$f['ContentLength']){
-				$this->$get_error_msg = "There was a problem accessing your file. ";
+				$this->error_msg = "There was a problem accessing your file. ";
 			} else {
 				return $f;
 			}
 		} catch (Exception $e){
-			$this->$get_error_msg = "There was a problem accessing your file. ";
+			$this->error_msg = "There was a problem accessing your file. ";
 		}
 	}
 
@@ -74,7 +74,7 @@ class s3 {
 					'Prefix' => self::$fileStoragePublicPrefix
 			));
 		} catch (Exception $e){
-			$this->$get_error_msg = "There was a problem accessing your file. ";
+			$this->error_msg = "There was a problem accessing your file. ";
 		}
 	}
 
@@ -94,15 +94,15 @@ class s3 {
 					'Bucket' => $userBucketName
 			));
 		} catch (Exception $e){
-			$this->$get_error_msg = "There was a problem accessing your file. ";
+			$this->error_msg = "There was a problem accessing your file. ";
 		}
 	}
 	
-	public function getErrorMessage(){
+	public function getErrorMsg(){
 		return $this->error_msg;
 	}
 	
-	public function getInfoMessage(){
+	public function getInfoMsg(){
 		return $this->info_msg;
 	}
 }
