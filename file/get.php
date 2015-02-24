@@ -26,7 +26,13 @@ if (isset($filename)){
 			exit();
 		}
 	}
-	$get_error_msg = "Sorry, we were unable to retrieve your file. ";
+	// Set error messages for display
+	if ($s3->getErrorMsg() !== null && !empty($s3->getErrorMsg())){
+		$get_error_msg = $s3->getErrorMsg();
+	}
+	if ($s3->getInfoMsg() !== null && !empty($s3->getInfoMsg())){
+		$get_info_msg = $s3->getInfoMsg();
+	}
 } else {
 	$get_info_msg = "Please provide a file name in your request. e.g. get.php?file=YourFileName.txt ";
 }

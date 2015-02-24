@@ -16,19 +16,19 @@ $s3 = new s3();
 
 <div class="container">
 
-	<?php if ($s3->getErrorMsg() !== null && !empty($s3->getErrorMsg())) : ?>
+	<?php if (isset($get_error_msg)) : ?>
 		<div class="alert alert-danger alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<strong>Error!</strong>
-			<?php echo $s3->getErrorMsg(); ?>
+			<?php echo $get_error_msg; ?>
 		</div>
 	<?php endif; ?>
 
-	<?php if ($s3->getInfoMsg() !== null && !empty($s3->getInfoMsg())) : ?>
+	<?php if (isset($get_info_msg)) : ?>
 		<div class="alert alert-info alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<strong>Oops!</strong>
-			<?php echo $s3->getInfoMsg(); ?>
+			<?php echo $get_info_msg; ?>
 		</div>
 	<?php endif; ?>
 	
@@ -47,11 +47,12 @@ $s3 = new s3();
 					<strong>Current Features</strong>
 					<ul>
 						<li><a href="/file/get.php">Access to files</a> is available by passing a file param. </li>
+						<li>User file access using the above while passing a user param. Note: Currently must be the logged in user. </li>
 					</ul>
 					<strong>Coming Features</strong>
 					<ul>
 						<li>Uploading files</li>
-						<li>User managed files</li>
+						<li>User file management</li>
 					</ul>
 				</div>
 			</div>

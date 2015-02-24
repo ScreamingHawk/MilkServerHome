@@ -9,6 +9,7 @@ class s3 {
 
 	private $error_msg = '';
 	private $info_msg = '';
+	private $error = null;
 
 	private function createS3Client(){
 		return Aws\S3\S3Client::factory(array(
@@ -22,7 +23,7 @@ class s3 {
 	}
 
 	public function getUserFile($filename, $username){
-		return $this->getPrefixedFile($filename, $username, ($username . self::$userBucketPostfix));
+		return $this->getPrefixedFile($filename, '', ($username . self::$userBucketPostfix));
 	}
 	
 	public function sendPublicFile($filename){
@@ -36,6 +37,9 @@ class s3 {
 	public function getPrefixedFile($filename, $filePrefix, $bucketName){
 		try{
 			$s3Client = $this->createS3Client();
+			
+			$this->info_msg = "File key: " . ($filePrefix . $filename) . " in bucket " . $bucketName;
+			
 			$f = $s3Client->getObject(array(
 					'Bucket' => $bucketName,
 					'Key' => ($filePrefix . $filename)
@@ -48,6 +52,7 @@ class s3 {
 			}
 		} catch (Exception $e){
 			$this->error_msg = "There was a problem accessing your file. ";
+			$this->error = $e;
 		}
 	}
 
@@ -75,6 +80,7 @@ class s3 {
 			));
 		} catch (Exception $e){
 			$this->error_msg = "There was a problem accessing your file. ";
+			$this->error = $e;
 		}
 	}
 
@@ -95,6 +101,7 @@ class s3 {
 			));
 		} catch (Exception $e){
 			$this->error_msg = "There was a problem accessing your file. ";
+			$this->error = $e;
 		}
 	}
 	
@@ -104,6 +111,10 @@ class s3 {
 	
 	public function getInfoMsg(){
 		return $this->info_msg;
+	}
+	
+	public function getError(){
+		return $this->error;
 	}
 }
 
