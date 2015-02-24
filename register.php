@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/register.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/header.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'includes/register.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'includes/header.php';
 ?>
 
 <div class="container">
@@ -65,4 +65,4 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/includes/header.php';
 	<p>Return to the <a href="index.php">home page</a>.</p>
 </div>
 
-<?php include_once $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'includes/footer.php'; ?>

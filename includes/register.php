@@ -1,5 +1,5 @@
 <?php
-include_once 'db_connect.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/db_connect.php';
 
 $header_block_register = true;
 $error_msg = "";

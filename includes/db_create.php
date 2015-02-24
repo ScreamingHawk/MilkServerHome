@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/includes/db_connect.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/db_connect.php';
 
 if ($mysqli->connect_error){
 	die("Connection failed: " . $mysqli->connect_error);

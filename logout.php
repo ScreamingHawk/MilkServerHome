@@ -1,7 +1,6 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'].'includes/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/sec_session_start.php';
 
-sec_session_start();
 $_SESSION = array();
 $params = session_get_cookie_params();
 setcookie(session_name(), '', 

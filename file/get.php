@@ -1,11 +1,6 @@
 <?php 
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/sec_session_start.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'lib/aws/aws-autoloader.php';
-
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db_connect.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
-
-sec_session_start();
-$skip_sec_session_start = true;
 
 if (isset($_GET['file'])){
 	$filename = $_GET['file'];

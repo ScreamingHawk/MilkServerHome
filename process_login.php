@@ -1,7 +1,9 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db_connect.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
-sec_session_start();
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/sec_session_start.php';
+
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/db_connect.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/functions.php';
+
 if (isset($_POST['email'], $_POST['p'])) {
 	$email = $_POST['email'];
 	$password = $_POST['p'];

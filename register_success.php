@@ -1,5 +1,5 @@
 <?php 
-include $_SERVER['DOCUMENT_ROOT'].'/includes/header.php'; 
+include $_SERVER['DOCUMENT_ROOT'].'includes/header.php'; 
 ?>
 
 <div class="jumbotron">
@@ -10,5 +10,5 @@ include $_SERVER['DOCUMENT_ROOT'].'/includes/header.php';
 </div>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; 
+include $_SERVER['DOCUMENT_ROOT'].'includes/footer.php'; 
 ?>

@@ -1,12 +1,10 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/db_connect.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'includes/sec_session_start.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'].'includes/db_connect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'includes/functions.php';
 
 $SITE_NAME = "Standen Links";
-
-if (!isset($skip_sec_session_start)){
-	sec_session_start();
-}
 
 if (login_check($mysqli) == true){
 	$logged = 'in';
