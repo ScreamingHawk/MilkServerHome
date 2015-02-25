@@ -48,11 +48,12 @@ $s3 = new s3();
 					<ul>
 						<li><a href="/file/get.php">Access to files</a> is available by passing a file param. </li>
 						<li>User file access using the above while passing a user param. Note: Currently must be the logged in user. </li>
+						<li>File uploading to private repository. </li>
 					</ul>
 					<strong>Coming Features</strong>
 					<ul>
-						<li>Uploading files</li>
-						<li>User file management</li>
+						<li>User file management (delete, rename). </li>
+						<li>Ability to make files public. </li>
 					</ul>
 				</div>
 			</div>
