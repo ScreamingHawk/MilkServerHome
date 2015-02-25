@@ -16,19 +16,19 @@ $s3 = new s3();
 
 <div class="container">
 
-	<?php if (isset($get_error_msg)) : ?>
+	<?php if (isset($file_error_msg)) : ?>
 		<div class="alert alert-danger alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<strong>Error!</strong>
-			<?php echo $get_error_msg; ?>
+			<?php echo $file_error_msg; ?>
 		</div>
 	<?php endif; ?>
 
-	<?php if (isset($get_info_msg)) : ?>
+	<?php if (isset($file_info_msg)) : ?>
 		<div class="alert alert-info alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<strong>Oops!</strong>
-			<?php echo $get_info_msg; ?>
+			<?php echo $file_info_msg; ?>
 		</div>
 	<?php endif; ?>
 	
@@ -131,6 +131,23 @@ $s3 = new s3();
 								endforeach; 
 								?>
 							</ul>
+							<br/>
+							<br/>
+							<form action="/file/put.php" method="post" enctype="multipart/form-data">
+								<div class="form-group">
+									<strong>Upload a file</strong>
+								</div>
+								<div class="form-group">
+									<label class="btn btn-primary" for="file">
+										<input type="file" name="file" id="file" style="display: none;" onchange="$('#file-info').html($(this).val());">
+										Choose File&hellip;
+									</label>
+									<span class="label label-info" id="file-info"></span>
+								</div>
+								<div class="form-group">
+									<input type="submit" class="btn btn-success" value="Upload" name="submit">
+								</div>
+							</form>
 						<?php endif; ?>
 					</div>
 				</div>

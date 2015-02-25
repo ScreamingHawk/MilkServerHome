@@ -19,7 +19,7 @@ if (isset($filename)){
 				exit();
 			}
 		} else {
-			$get_error_msg = "You may only access private files of the logged in user. ";
+			$file_error_msg = "You may only access private files of the logged in user. ";
 		}
 	} else {
 		if ($s3->sendPublicFile($filename)){
@@ -28,13 +28,13 @@ if (isset($filename)){
 	}
 	// Set error messages for display
 	if ($s3->getErrorMsg() !== null && !empty($s3->getErrorMsg())){
-		$get_error_msg = $s3->getErrorMsg();
+		$file_error_msg = $s3->getErrorMsg();
 	}
 	if ($s3->getInfoMsg() !== null && !empty($s3->getInfoMsg())){
-		$get_info_msg = $s3->getInfoMsg();
+		$file_info_msg = $s3->getInfoMsg();
 	}
 } else {
-	$get_info_msg = "Please provide a file name in your request. e.g. get.php?file=YourFileName.txt ";
+	$file_info_msg = "Please provide a file name in your request. e.g. get.php?file=YourFileName.txt ";
 }
 
 include $_SERVER['DOCUMENT_ROOT'].'file/index.php';

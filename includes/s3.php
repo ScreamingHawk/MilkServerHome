@@ -37,9 +37,7 @@ class s3 {
 	public function getPrefixedFile($filename, $filePrefix, $bucketName){
 		try{
 			$s3Client = $this->createS3Client();
-			
-			$this->info_msg = "File key: " . ($filePrefix . $filename) . " in bucket " . $bucketName;
-			
+						
 			$f = $s3Client->getObject(array(
 					'Bucket' => $bucketName,
 					'Key' => ($filePrefix . $filename)
@@ -101,6 +99,24 @@ class s3 {
 			));
 		} catch (Exception $e){
 			$this->error_msg = "There was a problem accessing your file. ";
+			$this->error = $e;
+		}
+	}
+	
+	public function putUserFile($filelocation, $filename, $username){
+		try{
+			$s3Client = $this->createS3Client();
+			
+			$finfo = new finfo(FILEINFO_MIME_TYPE);
+			$s3Client->putObject(array(
+					'Bucket' => ($username . self::$userBucketPostfix),
+					'Key' => $filename,
+					'SourceFile' => $filelocation,
+					'StorageClass' => 'REDUCED_REDUNDANCY',
+					'ContentType' => $finfo->file($filelocation)
+			));
+		} catch (Exception $e){
+			$this->error_msg = "There was a problem submitting your file. ";
 			$this->error = $e;
 		}
 	}
